@@ -5,7 +5,9 @@
  */
 
 /**
- *
+ * Pertemuan 1
+ * 03/03/2018
+ * 
  * @author Hendri Gunawan - 41815120093
  */
 public class OperatorBit {
