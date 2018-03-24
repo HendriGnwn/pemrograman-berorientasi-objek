@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 /**
  * Pertemuan 3
+ * menghitung kabisat memakai metode mod / hasil sisa bagi
+ * memakai kondisi if else
  * 24/03/2018
  * 
  * @author Hendri Gunawan - 41815120093
