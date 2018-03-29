@@ -30,25 +30,27 @@ public class LarikSort {
         System.out.println("---------------------");
         System.out.println("Nomor\tNama");
         System.out.println("---------------------");
-        for (int i=0; i<names.length; i++) {
-            System.out.println(names[i].id + "\t" + names[i].name);
+        for (Names name: names) {
+            System.out.println(name.getId() + "\t" + name.getName());
         }
         System.out.println("---------------------");
+        
         Arrays.sort(names, new Comparator<Names>() {
             @Override
             public int compare(Names o1, Names o2) {
-                return o1.compareTo(o2.id);
+                return o1.getId().compareTo(o2.getId());
             }
         });
         
-//        
-//        System.out.println("---------------------");
-//        System.out.println("Nomor\tNama");
-//        System.out.println("---------------------");
-//        for (int i=0; i<names.length; i++) {
-//            System.out.println(names[i].id + "\t" + names[i].name);
-//        }
-//        System.out.println("---------------------");
+        System.out.println();
+        System.out.println("Diurutkan sesuai Nomor:");
+        System.out.println("---------------------");
+        System.out.println("Nomor\tNama");
+        System.out.println("---------------------");
+        for (Names name: names) {
+            System.out.println(name.getId() + "\t" + name.getName());
+        }
+        System.out.println("---------------------");
     }
 }
 
@@ -61,15 +63,27 @@ class Names implements Comparable<Names> {
         this.name = name;
     }
     
-    public String toString()
-    {
-        return this.id.toString();
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(int value) {
+        this.id = value;
+    }
+    
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String value) {
+        this.name = value;
     }
     
     @Override
     public int compareTo(Names o) {
         // usually toString should not be used,
         // instead one of the attributes or more in a comparator chain
-        return toString().compareTo(o.toString());
+        return this.getId().compareTo(o.getId());
     }
 }
