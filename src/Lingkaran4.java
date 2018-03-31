@@ -23,8 +23,8 @@ public class Lingkaran4 extends ObjekGeometri1 {
     
     public Lingkaran4(double radius, String warna, boolean terisi) {
         this.radius = radius;
-        this.dapatWarna(warna);
-        this.tetapkanTerisi(terisi);
+        dapatWarna(warna);
+        tetapkanTerisi(terisi);
     }
     
     //mengembalikan radius
@@ -38,5 +38,21 @@ public class Lingkaran4 extends ObjekGeometri1 {
     }
     
     //mengembalikan luas
+    public double dapatLuas() {
+        return radius * radius * Math.PI;
+    }
     
+    //mengembalikan diameter
+    public double dapatDiameter() {
+        return 2 * radius;
+    }
+    
+    //mengembalikan keliling
+    public double dapatKeliling() {
+        return 2 * radius * Math.PI;
+    }
+    
+    public String keString() {
+        return super.keString() + "\nradius sebesar: " + radius;
+    }
 }

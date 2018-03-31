@@ -55,6 +55,6 @@ public class ObjekGeometri1 {
     
     //mengembalikan suatu representasi string atas objek ini
     public String keString() {
-        return "Diciptakan pada " + tanggalDiciptakan + "\n warna : " + warna + " dan nilai -tersi " + terisi;
+        return "Diciptakan pada " + tanggalDiciptakan + "\nwarna " + warna + " dan nilai tersi " + terisi;
     }
 }
