@@ -7,7 +7,7 @@ package QuisPertemuan4GajiKaryawan;
 
 /**
  *
- * @author FASILKOM
+ * @author Hendri Gunawan - 41815120093
  */
 public class QuisPertemuan4GajiKaryawan {
     /**
