@@ -25,4 +25,8 @@ public class QuisPertemuan4GajiKaryawan {
      * transport 30.000 /hari
      * total gaji = gaji honorer + transport
      */
+    
+    public static void main(String[] args) {
+        new MenuUtama().show();
+    }
 }
