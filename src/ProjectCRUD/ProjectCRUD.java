@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -76,7 +78,26 @@ public class ProjectCRUD extends javax.swing.JFrame {
             model.addRow(row);
         }
     }
-
+    
+    public void executeSqlQuery(String query, String message)
+    {
+        Connection conn = getConnection();
+        Statement st;
+        try {
+            st = conn.createStatement();
+            if (st.executeUpdate(query) == 1) {
+                DefaultTableModel model = (DefaultTableModel) tbl.getModel();
+                model.setRowCount(0);
+                showUsersInJTable();
+                JOptionPane.showMessageDialog(null, "Data " + message + " berhasil.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Data tidak " + message + " berhasil.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,10 +153,25 @@ public class ProjectCRUD extends javax.swing.JFrame {
         });
 
         btnInsert.setText("Insert");
+        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,6 +181,11 @@ public class ProjectCRUD extends javax.swing.JFrame {
                 "ID", "FirstName", "LastName", "Age"
             }
         ));
+        tbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,6 +263,44 @@ public class ProjectCRUD extends javax.swing.JFrame {
     private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFirstNameActionPerformed
+
+    private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
+        // display selected row in jext field
+        int i = tbl.getSelectedRow();
+        TableModel model = tbl.getModel();
+        txtId.setText(model.getValueAt(i, 0).toString());
+        txtFirstName.setText(model.getValueAt(i, 1).toString());
+        txtLastName.setText(model.getValueAt(i, 2).toString());
+        txtAge.setText(model.getValueAt(i, 3).toString());
+    }//GEN-LAST:event_tblMouseClicked
+
+    private void clearText() {
+        txtId.setText("");
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtAge.setText("");
+    }
+    
+    private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
+        // TODO add your handling code here:
+        String query = "INSERT INTO user (first_name, last_name, age) VALUES ('" + txtFirstName.getText()  + "', '" + txtLastName.getText() + "', '" + txtAge.getText() + "')";
+        executeSqlQuery(query, "Insert");
+        clearText();
+    }//GEN-LAST:event_btnInsertActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        String query = "UPDATE user SET first_name = '" + txtFirstName.getText()  + "', last_name = '" + txtLastName.getText()  + "', age = '" + txtAge.getText()  + "' WHERE id = '" + txtId.getText() + "'";
+        executeSqlQuery(query, "Update");
+        clearText();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handlig code here:
+        String query = "DELETE FROM user WHERE id = '" + txtId.getText() + "'";
+        executeSqlQuery(query, "delete");
+        clearText();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
